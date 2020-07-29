@@ -1,32 +1,31 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/cadastro">About</router-link>
+      <router-link class="links" to="/">Lista</router-link>•
+      <router-link class="links" to="/cadastro">Cadastro</router-link>
     </div>
-    <router-view />
+    <Title :title="Lista" />
+    <router-view class="container" />
+    <div id="footer">
+      <span class="footerSpan">Wayne Gomes - 2020</span>
+    </div>
   </div>
 </template>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<style scoped>
+.links,
+.footerSpan {
+  margin: auto 16px auto 16px;
 }
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.router-link-exact-active {
+  color: #1188ee;
 }
 </style>
+<script>
+import Title from "@/components/Title.vue";
+
+export default {
+  components: {
+    Title
+  },
+}
+</script>
