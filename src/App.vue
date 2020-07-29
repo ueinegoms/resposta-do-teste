@@ -4,7 +4,7 @@
       <router-link class="links" to="/">Lista</router-link>•
       <router-link class="links" to="/cadastro">Cadastro</router-link>
     </div>
-    <Title :title="Lista" />
+    <Title :title=$route.name />
     <router-view class="container" />
     <div id="footer">
       <span class="footerSpan">Wayne Gomes - 2020</span>

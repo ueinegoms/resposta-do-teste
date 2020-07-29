@@ -1,14 +1,12 @@
 <template>
   <div class="titleDiv">
-    <span>{{title}}</span>
+    <span class="container">{{title}}</span>
   </div>
 </template>
 <script>
 export default {
-  data() {
-    return {
-      title: "Título",
-    };
-  }
+  props: {
+    title: String,
+  },
 };
 </script>
