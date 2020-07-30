@@ -2,6 +2,8 @@
 body {
     font-family: "Nunito", sans-serif;
     color: #445566;
+    font-size: 18px;
+    font-weight: 700;
 }
 #nav {
     width: 100%;
@@ -40,7 +42,7 @@ a:active {
 }
 #app {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0px;
     display: flex;
     flex-direction: column;
@@ -73,11 +75,100 @@ a:active {
     height: 140px;
     background: #eff4f9;
     display: flex;
+}
+/* label */
+label {
+    margin-top: 18px;
+    margin-bottom: 8px;
+    margin-right: 36px;
+}
+/* input */
+input {
+    font-family: "Nunito", sans-serif;
+    color: #445566;
+    font-size: 18px;
+    font-weight: 700;
 
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #eff4f9;
+    box-shadow: 0px 2px 2px rgba(187, 204, 221, 0.4);
+
+    transition: all 100ms ease;
+}
+input:focus {
+    box-shadow: 0px 0px 8px #1188ee;
+    outline-style: none;
+}
+input[type="radio"] {
+    border-radius: 100%;
+
+    box-shadow:inset 0px 0px 0px 2px #1188ee;
+    cursor: pointer;
+    display: inline-block;
+    height: 25px;
+    width: 25px;
+    -webkit-appearance: none;
+
+    margin: 14px 18px 8px 0px;
+}
+input[type="radio"]:checked {
+    /* background-color: #f66;
+    box-shadow: inset 0 0 0 1px hsla(0, 0%, 0%, 0.4), inset 0 2px 2px hsla(0, 0%, 100%, 0.4),
+        0 1px 1px hsla(0, 0%, 100%, 0.8), 0 0 2px 2px hsla(0, 70%, 70%, 0.4); */
+    /* border-width: 8px; */
+    box-shadow:inset 0px 0px 0px 8px #1188ee;
+}
+
+/* colours */
+.blue {
+    color: #1188ee;
+}
+/* utilities */
+.hr {
+    border-bottom: solid;
+    border-width: 3px;
+    border-color: #eff4f9;
+}
+.space-top {
+    margin-top: 36px;
+}
+.fullwidth,
+.halfwidth,
+.fullwidthmobile {
+    display: flex;
+    width: 100%;
+}
+.flexcolumn {
+    display: flex;
+    flex-direction: column;
+}
+.flex {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 @media screen and (min-width: 860px) {
     .container {
         max-width: 860px;
+    }
+    #nav,
+    #footer {
+        padding-left: calc((100% - 860px) / 2);
+        padding-right: calc((100% - 860px) / 2);
+    }
+
+    /* utilities */
+    .halfwidth {
+        width: 48%;
+    }
+    .halfwidthSpace {
+        display: block;
+        height: 1px;
+        width: 4%;
+    }
+    .fullwidthmobile{
+        width: auto;
     }
 }
