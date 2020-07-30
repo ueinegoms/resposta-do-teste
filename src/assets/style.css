@@ -83,7 +83,42 @@ label {
     margin-right: 36px;
 }
 /* input */
-input {
+::placeholder {
+    opacity: 0.2; /* Firefox */
+}
+select,
+option {
+    -webkit-appearance: none;
+}
+.selectArrow::before{
+    width: 0px;
+    content: 'v';
+    font-weight: 900;
+    display: block;
+    position: relative;
+    left: -20px;
+    top: 15px;
+    transform: scaleY(0.8);
+}
+button{
+    font-family: "Nunito", sans-serif;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+
+    width: auto;
+
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #1188ee;
+    box-shadow: 0px 2px 2px rgba(187, 204, 221, 0.4);
+
+    transition: all 100ms ease;
+}
+input,
+select,
+option {
     font-family: "Nunito", sans-serif;
     color: #445566;
     font-size: 18px;
@@ -97,16 +132,13 @@ input {
 
     transition: all 100ms ease;
 }
-input:focus {
+input:focus, button:focus {
     box-shadow: 0px 0px 8px #1188ee;
     outline-style: none;
 }
 input[type="radio"] {
-    border-radius: 100%;
-
-    box-shadow:inset 0px 0px 0px 2px #1188ee;
-    cursor: pointer;
-    display: inline-block;
+    box-shadow: inset 0px 0px 0px 2px #1188ee;
+    border-radius: 50%;
     height: 25px;
     width: 25px;
     -webkit-appearance: none;
@@ -114,18 +146,28 @@ input[type="radio"] {
     margin: 14px 18px 8px 0px;
 }
 input[type="radio"]:checked {
-    /* background-color: #f66;
-    box-shadow: inset 0 0 0 1px hsla(0, 0%, 0%, 0.4), inset 0 2px 2px hsla(0, 0%, 100%, 0.4),
-        0 1px 1px hsla(0, 0%, 100%, 0.8), 0 0 2px 2px hsla(0, 70%, 70%, 0.4); */
-    /* border-width: 8px; */
-    box-shadow:inset 0px 0px 0px 8px #1188ee;
+    box-shadow: inset 0px 0px 0px 8px #1188ee;
 }
 
+/* font-size */
+.fonts-s{
+    font-size: medium;
+}
+/* font-weight */
+.fontw-m{
+    font-weight: 600;
+}
+.fontw-l{
+    font-weight: 300;
+}
 /* colours */
 .blue {
     color: #1188ee;
 }
 /* utilities */
+.mtop{
+    margin-top: 18px;
+}
 .hr {
     border-bottom: solid;
     border-width: 3px;
@@ -148,6 +190,14 @@ input[type="radio"]:checked {
     display: flex;
     flex-wrap: wrap;
 }
+.halfwidthfixed {
+    width: 48%;
+}
+.halfwidthfixedspace {
+    display: block;
+    height: 1px;
+    width: 4%;
+}
 
 @media screen and (min-width: 860px) {
     .container {
@@ -168,7 +218,25 @@ input[type="radio"]:checked {
         height: 1px;
         width: 4%;
     }
-    .fullwidthmobile{
+    .fullwidthmobile {
         width: auto;
+    }
+}
+
+
+/* animations */
+.animboink{
+    animation: boink 250ms ease;
+}
+@keyframes boink{
+    0%{
+
+    }
+    50%{
+        transform: scale(0.99);
+        background-color: #17222d;
+    }
+    100%{
+
     }
 }
