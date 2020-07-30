@@ -35,11 +35,6 @@ a:active::before {
     display: block;
     background-color: #1188ee;
 }
-a:hover,
-a:active {
-    color: #1188ee;
-    transform: scaleX(1.1);
-}
 #app {
     width: 100%;
     min-height: 100vh;
@@ -90,9 +85,9 @@ select,
 option {
     -webkit-appearance: none;
 }
-.selectArrow::before{
+.selectArrow::before {
     width: 0px;
-    content: 'v';
+    content: "v";
     font-weight: 900;
     display: block;
     position: relative;
@@ -100,7 +95,7 @@ option {
     top: 15px;
     transform: scaleY(0.8);
 }
-button{
+button {
     font-family: "Nunito", sans-serif;
     color: #fff;
     font-size: 18px;
@@ -132,7 +127,8 @@ option {
 
     transition: all 100ms ease;
 }
-input:focus, button:focus {
+input:focus,
+button:focus {
     box-shadow: 0px 0px 8px #1188ee;
     outline-style: none;
 }
@@ -150,14 +146,14 @@ input[type="radio"]:checked {
 }
 
 /* font-size */
-.fonts-s{
+.fonts-s {
     font-size: medium;
 }
 /* font-weight */
-.fontw-m{
+.fontw-m {
     font-weight: 600;
 }
-.fontw-l{
+.fontw-l {
     font-weight: 300;
 }
 /* colours */
@@ -165,7 +161,7 @@ input[type="radio"]:checked {
     color: #1188ee;
 }
 /* utilities */
-.mtop{
+.mtop {
     margin-top: 18px;
 }
 .hr {
@@ -223,20 +219,57 @@ input[type="radio"]:checked {
     }
 }
 
-
 /* animations */
-.animboink{
-    animation: boink 250ms ease;
+.animboinkwithbg {
+    animation: boinkwithbg 250ms ease;
 }
-@keyframes boink{
-    0%{
-
+@keyframes boinkwithbg {
+    0% {
     }
-    50%{
+    50% {
         transform: scale(0.99);
         background-color: #17222d;
     }
-    100%{
-
+    100% {
     }
+}
+.animboink {
+    animation: boink 250ms ease;
+}
+@keyframes boink {
+    0% {
+    }
+    50% {
+        transform: scale(0.5);
+    }
+    100% {
+    }
+}
+
+/* tables */
+
+table {
+    /* border-collapse: collapse; */
+    border-style: solid;
+    border-width: 2px;
+    border-color: #eff4f9;
+    white-space: nowrap;
+    width: 100%;
+}
+
+th {
+    font-weight: bold;
+}
+
+th,
+td {
+    border-style: solid;
+    border-width: 2px;
+    border-color: #eff4f9;
+    font-weight: 600;
+    text-align: left;
+    padding: 16px;
+}
+.table-full {
+    overflow-x: auto;
 }

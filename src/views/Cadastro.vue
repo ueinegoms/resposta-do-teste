@@ -119,7 +119,11 @@
     <div class="fullwidth flexcolumn hr space-top"></div>
     <div class="fullwidth flexcolumn space-top">
       <span class="fontw-m mtop">Seu cartão será debitado em R$ 49,00</span>
-      <button id="btmatricula" class="mtop" @click="addClass('btmatricula','animboink','250')">Realizar Matrícula</button>
+      <button
+        id="btmatricula"
+        class="mtop"
+        @click="addClassTemporary('btmatricula','animboinkwithbg', 250)"
+      >Realizar Matrícula</button>
       <span class="fontw-l fonts-s mtop">Informações seguras e criptografadas</span>
     </div>
   </div>
@@ -138,8 +142,11 @@ export default {
     };
   },
   methods: {
-    addClass: function(){
-
+    addClassTemporary: function(id, classname, time) {
+      document.getElementById(id).classList.add(classname);
+      setTimeout(() => {
+        document.getElementById(id).classList.remove(classname);
+      }, time);
     }
   }
 };
