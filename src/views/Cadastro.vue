@@ -2,21 +2,36 @@
   <div class="flex">
     <!-- <h1>This is an about page</h1> -->
     <div class="fullwidth flexcolumn space-top">
-      <label for="nome">Nome</label>
-      <input id="nome" type="text" placeholder v-model="cadastro.nome" />
+      <label for="nome">
+        Nome
+        <span class="red">*</span>
+      </label>
+      <input
+        id="nome"
+        type="text"
+        placeholder
+        v-model="cadastros.nome"
+        class="obligatory"
+        name="Nome"
+      />
     </div>
     <div class="fullwidth flexcolumn">
       <label for="email">Email</label>
-      <input id="email" type="text" placeholder v-model="cadastro.email" />
+      <input id="email" type="text" placeholder v-model="cadastros.email" />
     </div>
     <div class="fullwidth flexcolumn">
-      <label for="cpf">Cpf</label>
+      <label for="cpf">
+        Cpf
+        <span class="red">*</span>
+      </label>
       <input
         id="cpf"
         type="text"
         placeholder="111.111.111-01"
-        v-model="cadastro.cpf"
+        v-model="cadastros.cpf"
         v-mask="'###.###.###-##'"
+        class="obligatory"
+        name="CPF"
       />
     </div>
     <div class="halfwidth flexcolumn">
@@ -25,13 +40,13 @@
         id="endereco"
         type="text"
         placeholder="Rua, Número e Bairro"
-        v-model="cadastro.endereco"
+        v-model="cadastros.endereco"
       />
     </div>
     <div class="halfwidthSpace"></div>
     <div class="halfwidth flexcolumn">
       <label for="estado">Estado</label>
-      <input id="estado" type="text" placeholder="Selecione o Estado" v-model="cadastro.estado" />
+      <input id="estado" type="text" placeholder="Selecione o Estado" v-model="cadastros.estado" />
     </div>
     <div class="halfwidth flexcolumn">
       <label for="cep">Cep</label>
@@ -39,14 +54,14 @@
         id="cep"
         type="text"
         placeholder="22.222-000"
-        v-model="cadastro.cep"
+        v-model="cadastros.cep"
         v-mask="'##.###-###'"
       />
     </div>
     <div class="halfwidthSpace"></div>
     <div class="halfwidth flexcolumn">
       <label for="cidade">Cidade</label>
-      <input id="cidade" type="text" placeholder="Selecione a Cidade" v-model="cadastro.cidade" />
+      <input id="cidade" type="text" placeholder="Selecione a Cidade" v-model="cadastros.cidade" />
     </div>
     <div class="fullwidth flexcolumn space-top">
       <label class="blue">Forma de Pagamento</label>
@@ -59,8 +74,9 @@
             type="radio"
             id="credito"
             name="opcaopagamento"
-            value="credito"
+            value="1"
             @click="removeClass('cartaoForm', 'collapsed')"
+            v-model="cadastros.cartaoBool"
           />
           <label for="credito">Cartão de Crédito</label>
         </div>
@@ -69,9 +85,9 @@
             type="radio"
             id="boleto"
             name="opcaopagamento"
-            value="boleto"
-            checked
+            value="0"
             @click="addClass('cartaoForm', 'collapsed')"
+            v-model="cadastros.cartaoBool"
           />
           <label for="boleto">Boleto Bancário</label>
         </div>
@@ -83,14 +99,14 @@
             id="nome"
             type="text"
             placeholder="Nome Impresso no Cartão"
-            v-model="cadastro.cartao.nome"
+            v-model="cadastros.cartao.nome"
           />
         </div>
         <div class="halfwidthSpace"></div>
         <div class="halfwidth flexcolumn">
           <label for="cidade">Data de expiração</label>
           <div class="flex">
-            <select class="halfwidthfixed" id="cidade" v-model="cadastro.cartao.datames">
+            <select class="halfwidthfixed" id="cidade" v-model="cadastros.cartao.mes">
               <option value disabled selected hidden>Mês</option>
               <option value="1">Janeiro</option>
               <option value="2">Fevereiro</option>
@@ -107,8 +123,8 @@
             </select>
             <div class="selectArrow"></div>
             <div class="halfwidthfixedspace"></div>
-            <select class="halfwidthfixed" id="cidade" v-model="cadastro.cartao.dataano">
-              <option value="" disabled selected hidden>Ano</option>
+            <select class="halfwidthfixed" id="cidade" v-model="cadastros.cartao.ano">
+              <option value disabled selected hidden>Ano</option>
               <option value="2020">2020</option>
               <option value="2021">2021</option>
               <option value="2022">2022</option>
@@ -150,7 +166,7 @@
             id="nome"
             type="text"
             placeholder="5555 5555 5555 5555"
-            v-model="cadastro.cartao.numero"
+            v-model="cadastros.cartao.numero"
             v-mask="'#### #### #### ####'"
           />
         </div>
@@ -161,7 +177,7 @@
             id="nome"
             type="text"
             placeholder="XXX"
-            v-model="cadastro.cartao.codseguranca"
+            v-model="cadastros.cartao.codSeguranca"
             v-mask="'###'"
           />
         </div>
@@ -169,11 +185,12 @@
     </div>
     <div class="fullwidth flexcolumn hr space-top"></div>
     <div class="fullwidth flexcolumn space-top">
+      <span class="fontw-m mtop red" id="errorMessage">{{errorMessage}}</span>
       <span class="fontw-m mtop">Seu cartão será debitado em R$ 49,00</span>
       <button
         id="btmatricula"
         class="mtop"
-        @click="addClassTemporary('btmatricula','animboinkwithbg', 250)"
+        @click="addClassTemporary('btmatricula','animboinkwithbg', 250); postForm()"
       >Realizar Matrícula</button>
       <span class="fontw-l fonts-s mtop">Informações seguras e criptografadas</span>
     </div>
@@ -183,16 +200,33 @@
 export default {
   data() {
     return {
-      cadastro: {
+      cadastros: {
+        id: "default",
         nome: null,
         email: null,
         cpf: null,
-        cartao: {}
+        endereco: null,
+        estado: null,
+        cep: null,
+        cidade: null,
+        cartaoBool: "1",
+        cartao: {
+          nome: null,
+          mes: null,
+          ano: null,
+          numero: null,
+          codSeguranca: null
+        }
       },
-      id: null
+      id: null,
+      errorMessage: ""
     };
   },
   methods: {
+    pushRouter: function(newUrl, data) {
+      this.$router.push({ path: newUrl + data });
+      console.log(data);
+    },
     addClassTemporary: function(id, classname, time) {
       document.getElementById(id).classList.add(classname);
       setTimeout(() => {
@@ -210,19 +244,60 @@ export default {
         element.style.height = "auto";
         element.style.height = element.offsetHeight + "px";
       });
+    },
+    validateForm: function() {
+      let ok = true;
+      let errorMessage = "Obrigatório os campos: ";
+      document.getElementsByClassName("obligatory").forEach(element => {
+        // element.style.height = "auto";
+        // element.style.height = element.offsetHeight + "px";
+        if (element.value == "" || element.value == null) {
+          ok = false;
+          errorMessage += element.name + "; ";
+        }
+      });
+      if (!ok) {
+        this.errorMessage = errorMessage;
+      } else {
+        this.errorMessage = "";
+      }
+      return ok;
+    },
+    postForm: async function() {
+      if (this.validateForm()) {
+        var requestOptions = {
+          method: "POST",
+          mode: "cors",
+          // headers: { 'x-auth-token': user.token },
+          body: JSON.stringify(this.cadastro),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
+        };
+        return fetch(
+          "https://my-json-server.typicode.com/ueinegoms/fakeApis/cadastros",
+          requestOptions
+        )
+          .then(this.handleErrors)
+          .then(e =>
+            e.json().then(e => {
+              // return e;
+              this.pushRouter("/id/", e.id);
+            })
+          )
+          .catch(() =>
+            alert("Houve um problema de conexão, tente novamente mais tarde.")
+          )
+          .catch(error => console.log(`Erro no fetch: ${error}`));
+      }
     }
   },
   mounted: function() {
     this.$nextTick(function() {
       window.addEventListener("resize", this.setCollapsesHeight);
-
       //Init
       this.setCollapsesHeight();
     });
-    // collapse when loaded delayed so it doesn't bug the lines above
-    setTimeout(() => {
-      this.addClass("cartaoForm", "collapsed");
-    }, 100);
   }
 };
 </script>

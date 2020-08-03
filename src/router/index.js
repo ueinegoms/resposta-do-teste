@@ -8,7 +8,14 @@ const routes = [
   {
     path: "/",
     name: "Lista",
-    component: Lista
+    component: Lista,
+    // props: true
+  },
+  {
+    path: "/id/:id",
+    name: "Lista",
+    component: Lista,
+    props: true
   },
   {
     path: "/cadastro",

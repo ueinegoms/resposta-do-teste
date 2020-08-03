@@ -160,9 +160,13 @@ input[type="radio"]:checked {
 .blue {
     color: #1188ee;
 }
+.red {
+    color: red;
+}
 /* utilities */
 .collapsed{
     height: 0px !important;
+    opacity: 0;
 }
 .collapsable{
     overflow: hidden;
